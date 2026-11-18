@@ -8,6 +8,9 @@
 
 void Getline(std::wstring& str, wchar_t ch = L'\n');
 
+bool IsNumber(const std::wstring& str);
+
+
 __forceinline void Err()
 {
 	std::wcout << L"Неккоректный ввод!";
@@ -23,6 +26,7 @@ void FillArr(Arrtype* dynamicArr, Arrtype* staticArr, size_t commonSize)
 		dynamicArr[i] = staticArr[i];
 	}
 }
+
 
 
 #endif // !_SERVICES_HPP_

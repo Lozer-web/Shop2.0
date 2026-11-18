@@ -98,11 +98,11 @@ void SwarzniggaMenu()
 		}
 		else if (choose == L"3")
 		{
-
+			FillProduct();
 		}
 		else if (choose == L"4")
 		{
-
+			RemoveProduct();
 		}
 		else if (choose == L"5")
 		{
