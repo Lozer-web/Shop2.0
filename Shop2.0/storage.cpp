@@ -5,6 +5,10 @@ size_t* idArr = nullptr;
 std::wstring* nameArr = nullptr;
 size_t* countArr = nullptr;
 double* priceArr = nullptr;
+
+size_t* supplierCountArr = nullptr;//ПОСТАВЩИК ДЗ
+double* supplierPriceArr = nullptr;
+
 bool isstoragecreated = false;
 double MaxPrice = 600000;
 
@@ -15,18 +19,19 @@ void CreateStorage(int mode)
 {
 	if (mode == 0 && !isstoragecreated)
 	{
-		const size_t stsize = 11;
+		const size_t stsize = 12;
 
-		size_t idArrSt[stsize]{ 1,2,3,4,5,6,7,8,9,10,11, };
+		size_t idArrSt[stsize]{ 1,2,3,4,5,6,7,8,9,10,11,12 };
 		std::wstring nameArrSt[stsize]
 		{
 			L"Хавчик для массанапора", L"Газява для качка", L"Хрумки для большой пиструнки",
-			L"Креатин для мущщин", L"Протеин для мудрил", L"Кистевики страховики", L"Лямки вонялки"
+			L"Креатин для мущщин", L"Протеин для мудрил", L"Кистевики страховики", L"Лямки вонялки",
 			L"Солевой скачок", L"Изотоник мазолик", L"Батончики для наборчика",L"Печенюхи для жимухи",
 			L"Магнезия из Скандинезии"
 		};
-		size_t countArrSt[stsize]{ 25,100,100,70,50,20,30,34,70,60,50, };
-		double priceArrSt[stsize]{130,80,60,2000,2500,700,1000,500,60,90,130, };
+		size_t countArrSt[stsize]{ 25,100,100,70,50,20,30,34,70,60,50,55 };
+		double priceArrSt[stsize]{130,80,60,2000,2500,700,1000,500,60,90,130,222 };
+		size_t supplierCountArrSt[stsize]{ 150,300,250,120,100,80,90,110,200,180,140, 130 };//ПОСТАВЩИК ДЗ
 		sizeSt = stsize;
 		idArr = new size_t[sizeSt];
 		nameArr = new std::wstring[sizeSt];
@@ -37,6 +42,12 @@ void CreateStorage(int mode)
 		FillArr(nameArr, nameArrSt, sizeSt);
 		FillArr(countArr, countArrSt, sizeSt);
 		FillArr(priceArr, priceArrSt, sizeSt);
+
+		for (size_t i = 0; i < sizeSt; i++)//ПОСТАВЩИК ДЗ
+		{
+			supplierPriceArr[i] = priceArr[i] * 0.8;
+			CurrentStorageSize += countArr[i];
+		}
 
 		isstoragecreated = true;
 	}
@@ -129,7 +140,7 @@ void FillProduct()
 
 	while (true)
 	{
-		ShowStorage();
+		ShowStorage(1);
 		std::wcout << L"Введите ID товара или \"exit\" для выхода: ";
 		Getline(chooseId);
 		if (chooseId == L"exit" || chooseId == L"Exit")
@@ -147,6 +158,8 @@ void FillProduct()
 			}
 			else
 			{
+				std::wcout << L"Доступно у поставщика: " << supplierCountArr[id]//ПОСТАВЩИК ДЗ
+					<< L" шт. по цене " << supplierPriceArr[id] << L"\n";
 				std::wcout << L"Введите количество товара на пополнение: ";
 				Getline(chooseCount);
 				if (IsNumber(chooseCount))
@@ -158,13 +171,22 @@ void FillProduct()
 							<< MaxStorageSize - CurrentStorageSize << L" свободных мест\n\n";
 						Sleep(1700);
 					}
+					else if (count > supplierCountArr[id])//ПОСТАВЩИК ДЗ
+					{
+						std::wcout << L"У поставщика недостаточно товара! Доступно: "
+							<< supplierCountArr[id] << L" шт.\n\n";
+						Sleep(1700);
+					}
 					else
 					{
 						while (true)
 						{
 							system("cls");
-							std::wcout << nameArr[id] << L"\t" << countArr[id] << L" -----> "
-								<< countArr[id] + count << L"\n\n";
+							std::wcout << nameArr[id] << L"\n";
+							std::wcout << L"Склад магазина: " << countArr[id] << L" -----> "
+								<< countArr[id] + count << L"\n";
+							std::wcout << L"Склад поставщика: " << supplierCountArr[id] << L" -----> "//ПОСТАВЩИК ДЗ
+								<< supplierCountArr[id] - count << L"\n\n";
 							std::wcout << L"Подтвердить?\n1 - да\n2 - нет\n\nВвод: ";
 							Getline(choose);
 							if (choose == L"1")
@@ -172,6 +194,7 @@ void FillProduct()
 								std::wcout << L"Товар успешно пополнен. Красава!\n\n";
 								countArr[id] += count;
 								CurrentStorageSize += count;
+								supplierCountArr[id] -= count;//ПОСТАВЩИК ДЗ
 								Sleep(1500);
 								break;
 							}
@@ -191,6 +214,7 @@ void FillProduct()
 				}
 			}
 		}
+		
 	}
 }
 
@@ -337,4 +361,23 @@ void ChangePrice()
 		}
 	}
 }
+
+void ShowSupplierStorage()
+{
+	system("cls");
+	std::wcout << L"\n\n\t\t\tСклад поставщика \"Горилы-Варилы\"\n\n";
+
+	std::wcout << L"ID\t" << std::left << std::setw(40) << L"Название товара\t\t"
+		<< L"Кол-во\t" << L"Цена (-20%)\n\n";
+
+	for (size_t i = 0; i < sizeSt; i++)
+	{
+		std::wcout << idArr[i] << L"\t" << std::fixed << std::left << std::setw(40) << nameArr[i]
+			<< L"\t" << supplierCountArr[i] << L"\t" << std::setprecision(2) << supplierPriceArr[i] << L"\n";
+	}
+	std::wcout << L"\n";
+	system("pause");
+}
+
+
 

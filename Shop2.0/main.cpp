@@ -20,6 +20,8 @@ int main()
 		delete[] nameArr;
 		delete[] countArr;
 		delete[] priceArr;
+		delete[] supplierCountArr;
+		delete[] supplierPriceArr;
 	}
 	return 0;
 }

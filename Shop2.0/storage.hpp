@@ -11,14 +11,18 @@ extern double* priceArr;
 extern bool isstoragecreated;
 extern double MaxPrice;
 
+extern size_t* supplierCountArr;//ПОСТАВЩИК ДЗ
+extern double* supplierPriceArr;
+
 extern size_t MaxStorageSize;
 extern size_t CurrentStorageSize;
+
+
 void CreateStorage(int mode = 0);
 void ShowStorage(int mode = 0);
 void FillProduct();
-
 void RemoveProduct();
-
 void ChangePrice();
+void ShowSupplierStorage();//ПОСТАВЩИК ДЗ
 
 #endif // !_STORAGE_HPP_

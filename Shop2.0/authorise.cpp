@@ -84,7 +84,7 @@ void SwarzniggaMenu()
 		std::wcout << L"6 - Редактировать склад\n";
 		std::wcout << L"7 - Редактировать сотрудников\n";
 		std::wcout << L"8 - Редактировать сотрудников\n";
-		std::wcout << L"9 - Показать прибыль\n";
+		std::wcout << L"9 - Посмотреть склад поставщика\n";
 		std::wcout << L"0 - Выход\n";
 		Getline(choose);
 
@@ -122,11 +122,11 @@ void SwarzniggaMenu()
 		}
 		else if (choose == L"9")
 		{
-
+			ShowSupplierStorage();
 		}
 		else if (choose == L"0")
 		{
-
+			break;
 		}
 		else
 		{
