@@ -32,24 +32,29 @@ void CreateStorage(int mode)
 		size_t countArrSt[stsize]{ 25,100,100,70,50,20,30,34,70,60,50,55 };
 		double priceArrSt[stsize]{130,80,60,2000,2500,700,1000,500,60,90,130,222 };
 		size_t supplierCountArrSt[stsize]{ 150,300,250,120,100,80,90,110,200,180,140, 130 };//ПОСТАВЩИК ДЗ
+
 		sizeSt = stsize;
 		idArr = new size_t[sizeSt];
 		nameArr = new std::wstring[sizeSt];
 		countArr = new size_t[sizeSt];
 		priceArr = new double[sizeSt];
+		supplierCountArr = new size_t[sizeSt];
+		supplierPriceArr = new double[sizeSt];
 
 		FillArr(idArr, idArrSt, sizeSt);
 		FillArr(nameArr, nameArrSt, sizeSt);
 		FillArr(countArr, countArrSt, sizeSt);
 		FillArr(priceArr, priceArrSt, sizeSt);
+		FillArr(supplierCountArr, supplierCountArrSt, sizeSt);
 
-		for (size_t i = 0; i < sizeSt; i++)//ПОСТАВЩИК ДЗ
+		for (size_t i = 0; i < sizeSt; i++)
 		{
 			supplierPriceArr[i] = priceArr[i] * 0.8;
 			CurrentStorageSize += countArr[i];
 		}
 
 		isstoragecreated = true;
+
 	}
 
 	else if (mode == 1)
