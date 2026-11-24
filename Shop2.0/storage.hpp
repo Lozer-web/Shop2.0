@@ -24,5 +24,8 @@ void FillProduct();
 void RemoveProduct();
 void ChangePrice();
 void ShowSupplierStorage();//ПОСТАВЩИК ДЗ
+void ChangeStorage();
+
+void AddNewProduct();
 
 #endif // !_STORAGE_HPP_

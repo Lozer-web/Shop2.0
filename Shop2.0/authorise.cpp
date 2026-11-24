@@ -106,11 +106,11 @@ void SwarzniggaMenu()
 		}
 		else if (choose == L"5")
 		{
-
+			ChangePrice();
 		}
 		else if (choose == L"6")
 		{
-
+			AddNewProduct();
 		}
 		else if (choose == L"7")
 		{

@@ -16,10 +16,22 @@ bool IsNumber(const std::wstring& str)
 
 	for (size_t i = 0; i < str.size(); i++)
 	{
-		if (!std::isdigit(str[i]))
+		if (!std::iswdigit(str[i]))
 		{
 			std::wcout << L"Введённые данные не являются числом, ты че даун?\n\n";
 			Sleep(1500);
+			return false;
+		}
+	}
+	return true;
+}
+
+bool IsNotSame(const std::wstring& str, std::wstring* nameArr, size_t arrSize)
+{
+	for (size_t i = 0; i < arrSize; i++)
+	{
+		if (nameArr[i] == str) 
+		{
 			return false;
 		}
 	}
