@@ -1,6 +1,7 @@
 #ifndef _STORAGE_HPP_
 #define _STORAGE_HPP_
-#include "services.hpp"
+
+#include "accounts.hpp"
 
 extern size_t sizeSt;
 extern size_t* idArr;
@@ -27,5 +28,11 @@ void ShowSupplierStorage();//ПОСТАВЩИК ДЗ
 void ChangeStorage();
 
 void AddNewProduct();
+
+void ChangeProductName();
+
+void DeleteProduct();
+
+void ChangeStorageLimits();
 
 #endif // !_STORAGE_HPP_
